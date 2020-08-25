@@ -54,4 +54,4 @@ class FinalResults(Page):
 
 
 
-page_sequence = [Introduction, NewRound, LockdownMessage, Contribute, ResultsWaitPage, Results, FinalResults]
+page_sequence = [Introduction, NewRound, LockDownMessage, Contribute, ResultsWaitPage, Results, FinalResults]
