@@ -18,7 +18,7 @@ class NewRound(WaitPage):
     body_text = 'Waiting for the other players to click through'
 
 
-class LockdownMessage(Page):
+class LockDownMessage(Page):
     def is_displayed(self):
         # display the page when in lockdown
         if self.group.lockdown:
