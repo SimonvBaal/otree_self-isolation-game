@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Survey
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        Please answer the following questions.
+    </p>
+
+    Question 1
+    {% formfield player.age %}
+
+    Question 2
+    {% formfield player.gender %}
+
+    Question 3
+    {% formfield player.covid_positive %}
+
+    Question 4
+    {% formfield player.location %}
+
+    {% next_button %}
+
+{% endblock %}
