@@ -6,7 +6,14 @@
 {% endblock %}
 
 {% block content %}
+    This is a public goods game where you will play for points. Each point is worth $0.02.
+    You will play multiple rounds, and for each round your endowment is {{ Constants.endowment }}.
+    There will be other participants in your group, who are also playing for points.
+    You are all trying to avoid a lockdown because in a lockdown you will be able to earn less money.
+    <br />
 
+    Below are specific instructions that will appear every time you need to decide how much you will
+    self-isolate.
     {% include Constants.instructions_template %}
 
     {% next_button %}

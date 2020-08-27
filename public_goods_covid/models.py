@@ -19,7 +19,7 @@ A public goods game, with public health as the public good and self-isolation as
 
 
 class Constants(BaseConstants):
-    name_in_url = 'public_goods_covid'
+    name_in_url = 'public_goods_2020' # if not working then set this back to public_goods_covid
     players_per_group = 3
     num_rounds = 10
     endowment = c(10)
@@ -28,8 +28,8 @@ class Constants(BaseConstants):
     instructions_template = 'public_goods_covid/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
-    lockdown_earnings = .4 * endowment
-    shirking_sensitivity = 5
+    lockdown_earnings = .3 * endowment
+    shirking_sensitivity = 4
 
 
 class Subsession(BaseSubsession):

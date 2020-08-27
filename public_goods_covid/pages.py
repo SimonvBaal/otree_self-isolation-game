@@ -13,9 +13,16 @@ class Introduction(Page):
             return False
 
 
+class StartWaitPage(WaitPage):
+    group_by_arrival_time = True
+
+    def is_displayed(self):
+        return self.round_number == 1
+
+
 class NewRound(WaitPage):
     after_all_players_arrive = 'set_lockdown'
-    body_text = 'Waiting for the other players to click through'
+    body_text = 'Waiting for the other players to click through.'
 
 
 class LockDownMessage(Page):
@@ -41,7 +48,7 @@ class Contribute(Page):
 
 class ResultsWaitPage(WaitPage):
     after_all_players_arrive = 'set_payoffs'
-    body_text = "Waiting for other participants to contribute."
+    body_text = "Waiting for other participants."
 
 
 class Results(Page):
@@ -53,5 +60,7 @@ class FinalResults(Page):
         return self.round_number == Constants.num_rounds
 
 
-
-page_sequence = [Introduction, NewRound, LockDownMessage, Contribute, ResultsWaitPage, Results, FinalResults]
+page_sequence = [StartWaitPage, Introduction,
+                 NewRound, LockDownMessage,
+                 Contribute, ResultsWaitPage,
+                 Results, FinalResults]

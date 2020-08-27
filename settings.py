@@ -6,7 +6,7 @@ SESSION_CONFIGS = [
         name='public_goods_covid',
         display_name="A Public Goods game with self-isolation",
         num_demo_participants=3,
-        app_sequence=['public_goods_covid', 'survey', 'payment_info'],
+        app_sequence=['consent', 'public_goods_covid', 'survey', 'payment_info'],
     ),
     dict(
         name='survey',

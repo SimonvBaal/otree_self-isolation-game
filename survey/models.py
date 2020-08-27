@@ -46,7 +46,13 @@ class Player(BasePlayer):
 
     location = models.StringField(
         label='''
-        "Which country do you live in?"
+        In which country do you currently reside?
+        '''
+    )
+
+    Prolific_ID = models.StringField(
+        label='''
+        Please enter you Prolific ID, this is important for you payment.
         '''
     )
 
