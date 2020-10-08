@@ -102,7 +102,6 @@ class Group(BaseGroup):
                     p.infected = 0
                 print("Lockdown is over, nobody is infected anymore")
 
-
     def set_payoffs(self):
         # In case of lockdown we set players' contributions to zero.
         if self.lockdown:
@@ -187,17 +186,77 @@ class Group(BaseGroup):
         self.total_earnings = sum([p.payoff for p in self.get_players()])
         self.end_total_infections = sum([p.infected for p in self.get_players()])
 
+    def first_round(self):
+        self.total_infections = 1
+
+
 
 class Player(BasePlayer):
     contribution = models.CurrencyField(
-        label="How much do you want to self-isolate.",
+        label="How much do you actually want to self-isolate in this round?",
         choices=[
-            [0, "No self-Isolation"],
-            [1, "Slight self-isolation"],
-            [2, "Intermediate self-isolation"],
-            [3, "Stringent self-isolation"],
-            [4, "Complete self-isolation"]
-        ]
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
+    )
+    second_player_contribution_0 = models.CurrencyField(
+        label="If the group self-isolation average were - Not at all",
+        choices=[
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
+    )
+    second_player_contribution_1 = models.CurrencyField(
+        label="If the group self-isolation average were - Slightly",
+        choices=[
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
+    )
+    second_player_contribution_2 = models.CurrencyField(
+        label="If the group self-isolation average were - Moderately",
+        choices=[
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
+    )
+    second_player_contribution_3 = models.CurrencyField(
+        label="If the group self-isolation average were - Stringently",
+        choices=[
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
+    )
+    second_player_contribution_4 = models.CurrencyField(
+        label="If the group self-isolation average were - Completely",
+        choices=[
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
     )
     infected = models.IntegerField()
     cumulative_earnings = models.CurrencyField(min=0, initial=0)

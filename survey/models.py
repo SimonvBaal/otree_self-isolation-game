@@ -31,9 +31,9 @@ class Player(BasePlayer):
     )
 
     gender = models.StringField(
-        choices=['Male', 'Female', 'Other', 'Prefer not to say'],
-        label='What is your gender?',
-        widget=widgets.RadioSelect,
+        choices=['Male', 'Female', 'Indeterminate/Intersex/Unspecified'],
+        label='What is your sex?',
+        widget=widgets.RadioSelect
     )
 
     covid_positive = models.BooleanField(

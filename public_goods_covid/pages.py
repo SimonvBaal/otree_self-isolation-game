@@ -1,4 +1,3 @@
-
 from ._builtin import Page, WaitPage
 from otree.api import Currency as c, currency_range
 from .models import Constants
@@ -34,14 +33,56 @@ class LockDownMessage(Page):
             return False
 
 
-class Contribute(Page):
+class SecondPlayerContribute(Page):
+    timer_text = "Time left to submit your decisions:"
 
     def is_displayed(self):
         if self.group.lockdown:
             return False
         else:
             return True
-    """Player: Choose how much to contribute"""
+
+    def get_timeout_seconds(self):
+        if self.round_number == 1:
+            return 90
+        else:
+            return 30
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.second_player_contribution_0 = 5
+            self.player.second_player_contribution_1 = 5
+            self.player.second_player_contribution_2 = 5
+            self.player.second_player_contribution_3 = 5
+            self.player.second_player_contribution_4 = 5
+
+    form_model = 'player'
+    form_fields = ['second_player_contribution_0',
+                   'second_player_contribution_1',
+                   'second_player_contribution_2',
+                   'second_player_contribution_3',
+                   'second_player_contribution_4']
+
+
+class Contribute(Page):
+    timer_text = "Time left to submit your decision:"
+
+    def is_displayed(self):
+        if self.group.lockdown:
+            return False
+        else:
+            return True
+
+    def get_timeout_seconds(self):
+        if self.round_number == 1:
+            return 45
+        else:
+            return 15
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.contribution = 4
+
     form_model = 'player'
     form_fields = ['contribution']
 
@@ -52,7 +93,12 @@ class ResultsWaitPage(WaitPage):
 
 
 class Results(Page):
-    """Players payoff: How much each has earned"""
+
+    def get_timeout_seconds(self):
+        if self.round_number == 1:
+            return 30
+        else:
+            return 10
 
 
 class FinalResults(Page):
@@ -62,5 +108,6 @@ class FinalResults(Page):
 
 page_sequence = [StartWaitPage, Introduction,
                  NewRound, LockDownMessage,
+                 SecondPlayerContribute,
                  Contribute, ResultsWaitPage,
                  Results, FinalResults]
