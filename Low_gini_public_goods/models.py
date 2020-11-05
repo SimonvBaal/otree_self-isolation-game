@@ -14,19 +14,20 @@ from otree.api import (
 author = 'Simon van Baal, Monash University'
 
 doc = """
-A public goods game, with public health as the public good and self-isolation as contribution.
+A public goods game, with public health as the good and self-isolation as the contribution.
 """
 
 
 class Constants(BaseConstants):
-    name_in_url = 'public_goods_2020'  # if not working then set this back to public_goods_covid
+    name_in_url = 'LG_public_goods'
     players_per_group = 3
-    num_rounds = 12
+    num_rounds = 40
+    endowment = c(1)
     # Richest u equally share f of the income, others equally share remainder, then G = f - u. 25 = 50 - 25
-    instructions_template = 'public_goods_covid/instructions.html'
+    instructions_template = 'Low_gini_public_goods/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
-    shirking_sensitivity = 5
+    shirking_sensitivity = 4
 
 
 class Subsession(BaseSubsession):
@@ -55,16 +56,110 @@ class Group(BaseGroup):
     total_infections = models.IntegerField()
     end_total_infections = models.IntegerField()
     total_earnings = models.CurrencyField()
+    average_earnings = models.CurrencyField()
     lockdown = models.BooleanField(initial=False)
     lockdown_round = models.IntegerField(initial=0)
     lockdown_number = models.IntegerField(initial=0)
     number_of_players = models.IntegerField()
 
-
-
     def set_lockdown(self):
         # Set lockdown variables for upcoming round
         self.number_of_players = len(self.get_players())
+
+        # Balanced square design: E = A, L = B, P = C, H = D
+        if self.session.config['condition'] == 'Eq-Lo-Hi-Po':
+            if self.round_number <= 10:
+                # Equality Condition
+                for p in self.get_players:
+                    p.my_endowment = 20
+            elif self.round_number >= 11 & self.round_number <= 20:
+                # Low Gini Condition (Gini = 24)
+                for p in self.get_players():
+                    if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
+                        p.my_endowment = 32
+                    else:
+                        p.my_endowment = 12
+            elif self.round_number >= 21 & self.round_number <= 30:
+                # High Gini Condition (Gini = 42)
+                for p in self.get_players():
+                    if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
+                        p.my_endowment = 48
+                    else:
+                        p.my_endowment = 8
+            else:
+                # Poverty for all Condition
+                for p in self.get_players():
+                    p.my_endowment = 10
+        elif self.session.config['condition'] == 'Lo-Po-Eq-Hi':
+            if self.round_number <= 10:
+                # Low Gini Condition (Gini = 24)
+                for p in self.get_players():
+                    if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
+                        p.my_endowment = 32
+                    else:
+                        p.my_endowment = 12
+            elif self.round_number >= 11 & self.round_number <= 20:
+                # Poverty for all Condition
+                for p in self.get_players():
+                    p.my_endowment = 10
+            elif self.round_number >= 21 & self.round_number <= 30:
+                # Equality Condition
+                for p in self.get_players():
+                    p.my_endowment = 20
+            else:
+                # High Gini Condition (Gini = 42)
+                for p in self.get_players():
+                    if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
+                        p.my_endowment = 48
+                    else:
+                        p.my_endowment = 8
+        elif self.session.config['condition'] == 'Po-Hi-Lo-Eq':
+            if self.round_number <= 10:
+                # Poverty for all Condition
+                for p in self.get_players():
+                    p.my_endowment = 10
+            elif self.round_number <= 20:
+                # High Gini Condition (Gini = 42)
+                for p in self.get_players():
+                    if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
+                        p.my_endowment = 48
+                    else:
+                        p.my_endowment = 8
+            elif self.round_number <= 30:
+                # Low Gini Condition (Gini = 24)
+                for p in self.get_players():
+                    if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
+                        p.my_endowment = 32
+                    else:
+                        p.my_endowment = 12
+            else:
+                # Equality Condition
+                for p in self.get_players():
+                    p.my_endowment = 20
+        else:
+            # Hi-Eq-Po-Lo
+            if self.round_number <= 10:
+                # High Gini Condition (Gini = 42)
+                for p in self.get_players():
+                    if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
+                        p.my_endowment = 48
+                    else:
+                        p.my_endowment = 8
+            elif self.round_number <= 20:
+                # Equality Condition
+                for p in self.get_players():
+                    p.my_endowment = 20
+            elif self.round_number <= 20:
+                # Poverty for all Condition
+                for p in self.get_players():
+                    p.my_endowment = 10
+            else:
+                # Low Gini Condition (Gini = 24)
+                for p in self.get_players():
+                    if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
+                        p.my_endowment = 32
+                    else:
+                        p.my_endowment = 12
 
         if self.round_number == 1:
             self.total_infections = 1
@@ -75,7 +170,6 @@ class Group(BaseGroup):
             # If less than the threshold have the virus, no lockdown.
             self.lockdown = False
             self.lockdown_round = 0
-            print("No lockdown, yay.")
             if self.round_number == 1:
                 self.lockdown_number = 0
             else:
@@ -111,7 +205,7 @@ class Group(BaseGroup):
         self.contribution_percentage = (round(
             (float(self.total_contribution) /
              (float(len(self.get_players())) *
-              float(Player.my_endowment*.4)) * 100.0), 2))
+              float(4)) * 100.0), 2))
 
         # Infection assignment from last round
         for p in self.get_players():
@@ -138,7 +232,7 @@ class Group(BaseGroup):
             if p.infected == 1:
                 infection_pool = infection_pool + (1.0 -
                                                    float(p.contribution) /
-                                                   float(p.my_endowment*.4))
+                                                   float(4))
                 print("infection pool", infection_pool)
 
         # Sensitivity to shirking
@@ -151,22 +245,31 @@ class Group(BaseGroup):
         if not self.lockdown:
             for p in self.get_players():
                 if p.infected == 0:
-                    transmission_chance = (1.0 - float(p.contribution) /
-                                           float(Player.my_endowment*.4)) * infection_pool
-                    if random.random() <= transmission_chance:
+                    p.transmission_chance = round((1.0 - float(p.contribution) /
+                                           float(4)) * infection_pool, 2)
+                    if random.random() <= p.transmission_chance:
                         p.infected = 1
                         print("I'm now infected")
                     else:
                         p.infected = 0
-                    print(transmission_chance, "was my chance of getting infected")
+                    print(p.transmission_chance, "was my chance of getting infected")
                 else:
                     p.infected = 1
+                    p.transmission_chance = 0
 
         # Set payoffs taking into account whether they're in lockdown
         if not self.lockdown:
             for p in self.get_players():
                 # Set payoffs
-                p.payoff = (p.my_endowment - p.contribution/10*p.my_endowment)
+                p.actual_payment = float(p.contribution)*.1*float(p.my_endowment)
+                if p.second_player_contribution_0 == 5 or p.second_player_contribution_1 == 5\
+                        or p.second_player_contribution_2 == 5 or p.second_player_contribution_3 == 5\
+                        or p.second_player_contribution_4 == 5:
+                    p.payoff = 0
+                    print("I didn't do anything, so I don't get paid.")
+                else:
+                    p.payoff = (float(p.my_endowment) - float(p.contribution)*.1*float(p.my_endowment))
+
                 if self.round_number == 1:
                     p.cumulative_earnings = p.payoff
                     print("I got money", p.payoff)
@@ -176,13 +279,14 @@ class Group(BaseGroup):
         else:
             # If they are in lockdown:
             for p in self.get_players():
-                p.payoff = p.my_endowment*.4
+                p.payoff = p.my_endowment * .4
                 if self.round_number == 1:
                     p.cumulative_earnings = p.payoff
                     self.lockdown_round = 1
                 else:
                     p.cumulative_earnings += p.payoff + p.in_round(self.round_number - 1).cumulative_earnings
 
+        self.average_earnings = sum([p.payoff for p in self.get_players()])/len(self.get_players())
         self.total_earnings = sum([p.payoff for p in self.get_players()])
         self.end_total_infections = sum([p.infected for p in self.get_players()])
 
@@ -191,6 +295,8 @@ class Player(BasePlayer):
     infected = models.IntegerField()
     cumulative_earnings = models.CurrencyField(min=0, initial=0)
     my_endowment = models.CurrencyField()
+    actual_payment = models.CurrencyField()
+    transmission_chance = models.FloatField()
     contribution = models.CurrencyField(
         label="How much do you actually want to self-isolate in this round?",
         choices=[
@@ -257,7 +363,6 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelectHorizontal
     )
-
 
     def payment(self):
         self.participant.earnings = self.cumulative_earnings

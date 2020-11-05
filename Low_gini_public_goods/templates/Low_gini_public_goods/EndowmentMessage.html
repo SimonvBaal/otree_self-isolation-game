@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 10) {
+                    $('.otree-timer').show();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}
+    Your endowment for the next rounds has been set.
+{% endblock %}
+
+{% block content %}
+    <p>
+    Your endowment will be {{ player.my_endowment }}
+    </p>
+    <p>
+    Please proceed to the next page.
+    </p>
+
+    {% next_button %}
+    {% comment %} {% endcomment %}
+
+{% endblock %}

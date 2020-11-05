@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    End of game
+{% endblock %}
+
+{% block content %}
+  
+
+    <table class="table-condensed" style="width:500px; margin-top:20px;">
+
+        <tr><td colspan="2"><hr/></td></tr>
+
+        <tr><td>In total you have earned:</td><td>{{ player.cumulative_earnings }}</td></tr>
+
+    </table>
+    <p></p>
+
+    {% next_button %}
+
+
+{% endblock %}
