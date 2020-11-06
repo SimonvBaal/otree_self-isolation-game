@@ -61,7 +61,7 @@ class SecondPlayerContribute(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 90
+            return 75
         else:
             return 30
 

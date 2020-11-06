@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     instructions_template = 'Low_gini_public_goods/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
-    shirking_sensitivity = 5
+    shirking_sensitivity = 4
 
 
 class Subsession(BaseSubsession):
@@ -70,7 +70,7 @@ class Group(BaseGroup):
         if self.session.config['condition'] == 'Eq-Lo-Hi-Po':
             if self.round_number <= 10:
                 # Equality Condition
-                for p in self.get_players:
+                for p in self.get_players():
                     p.my_endowment = 100
             elif self.round_number >= 11 & self.round_number <= 20:
                 # Low Gini Condition (Gini = 24)
