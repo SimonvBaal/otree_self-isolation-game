@@ -27,9 +27,12 @@
 {% endblock %}
 
 {% block content %}
-  
+  {% if player.payoff == 0 %}
+      <h5>Please give an answer to all the questions in the next round, otherwise we can't pay you.</h5>
+   {% endif %}
 
     <table class="table-condensed" style="width:500px; margin-top:20px;">
+
         <tr><td>By self-isolating, you contributed:</td><td>{{ player.actual_payment }}</td></tr>
         <tr><td>Group self-isolation percentage:</td><td>{{ group.contribution_percentage }}%</td></tr>
         <tr><td>Total earnings of the group:</td><td>{{ group.total_earnings }}</td></tr>

@@ -25,7 +25,20 @@
     Self-isolation decision
 {% endblock %}
 
+
+
 {% block content %}
+
+    <table class="table-condensed" style="width:500px; margin-top:20px;">
+        <tr><td>Total infections in the group:</td><td>{{ group.total_infections }}</td></tr>
+        <tr><td>Number of players in the group:</td><td>{{ group.number_of_players }}</td></tr>
+        <tr><td colspan="2"><hr/></td></tr>
+        <tr><td>Average endowment of the group:</td><td> {{ group.average_endowment }}</td></tr>
+        <tr><td colspan="2"><hr/></td></tr>
+        <tr><td>Endowment for this round:</td><td>{{ player.my_endowment }}</td></tr>
+        <tr><td>Maximum cost of self-isolation for you:</td><td>{{ player.maximum_contribution }}</td></tr>
+    </table>
+    <br />
 
     {% formfield player.contribution %}
 

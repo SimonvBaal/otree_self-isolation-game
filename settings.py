@@ -15,11 +15,18 @@ SESSION_CONFIGS = [
         app_sequence=['survey', 'payment_info'],
     ),
     dict(
-        name='Low_Gini_Public_Goods',
-        display_name='Low Gini Public Goods',
-        num_demo_participants=3,
-        app_sequence=['Low_gini_public_goods'],
-        condition='E-L-H'
+        name='Public_Goods_Game_Hi_Lo',
+        display_name='Public Goods Game 2020 (Hi->Lo)',
+        num_demo_participants=10,
+        app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
+        condition='Hi-Eq-Po-Lo'
+    ),
+    dict(
+        name='Public_Goods_Game_Eq_Po',
+        display_name='Public Goods Game 2020 (Eq->Po)',
+        num_demo_participants=10,
+        app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
+        condition='Eq-Lo-Hi-Po'
     ),
 ]
 
@@ -29,7 +36,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=0.02, participation_fee=2.00, doc=""
+    real_world_currency_per_point=0.001, participation_fee=1.50, doc=""
 )
 
 # ISO-639 code
@@ -42,11 +49,12 @@ USE_POINTS = True
 
 ROOMS = [
     dict(
-        name='econ101',
-        display_name='Econ 101 class',
-        participant_label_file='_rooms/econ101.txt',
+        name='Prolific_Room',
+        display_name='Prolific - Public Goods Game'
     ),
-    dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
+    dict(
+        name='Pilot_experiment',
+        display_name='Prolific - Pilot experiment'),
 ]
 
 ADMIN_USERNAME = 'admin'

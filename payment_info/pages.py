@@ -7,7 +7,7 @@ class PaymentInfo(Page):
     def vars_for_template(self):
         participant = self.participant
         return {
-            'completion_code': "Some Prolific code"
+            'completion_code': "2BC7879F"
         }
 
 

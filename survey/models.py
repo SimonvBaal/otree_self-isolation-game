@@ -45,14 +45,38 @@ class Player(BasePlayer):
     )
 
     location = models.StringField(
-        label='''
-        In which country do you currently reside?
-        '''
+        choices=[
+            'Australia', 'Other'
+        ],
+        label='In which country do you currently reside?'
     )
+
+    def location_error_message(self, value):
+        print('country is', value)
+        if value == 'Other':
+            return 'If you do not reside in Australia, please go to Prolific and return your submission. Thank you!'
+
+    state = models.StringField(
+        choices=['ACT', 'NSW', 'NT', 'QLD', 'SA', 'TAS', 'VIC', 'WA'],
+        label='In which state/territory do you currently reside?'
+    )
+
+    reading = models.BooleanField(
+        choices=[
+            [True, 'Yes'],
+            [False, 'No']
+        ],
+        label='Do you have trouble reading for any reason?'
+    )
+
+    def reading_error_message(self, value):
+        print("I have trouble reading:", value)
+        if value:
+            return "If you have trouble reading, please go to Prolific and return your submission."
 
     Prolific_ID = models.StringField(
         label='''
-        Please enter you Prolific ID, this is important for you payment.
+        Please enter you Prolific ID, this is important for your payment.
         '''
     )
 

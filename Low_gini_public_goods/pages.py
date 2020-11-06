@@ -27,7 +27,12 @@ class NewRound(WaitPage):
 class EndowmentMessage(Page):
     def is_displayed(self):
         if self.round_number == 1 or self.round_number == 11 or self.round_number == 21 or self.round_number == 31:
-            return
+            return True
+        else:
+            return False
+
+    def get_timeout_seconds(self):
+        return 30
 
 
 class LockDownMessage(Page):

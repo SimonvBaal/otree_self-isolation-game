@@ -6,7 +6,7 @@ from .models import Constants
 
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender', 'covid_positive', 'location', 'Prolific_ID']
+    form_fields = ['Prolific_ID', 'age', 'gender', 'covid_positive', 'location', 'state', 'reading']
 
 
 class CognitiveReflectionTest(Page):

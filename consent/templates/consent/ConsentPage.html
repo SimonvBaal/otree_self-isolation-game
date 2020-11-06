@@ -2,13 +2,26 @@
 {% load otree static %}
 
 {% block title %}
-    Consent form
+    Consent Form
 {% endblock %}
 
 {% block content %}
-    <p> Hi all, thanks for participating in the game.
-        Let's go make some fake money! <br /><br />
-        Normally, this is where the consent form would be. </p> <br />
+    <p> I agree to take part in the Monash University research project specified above.
+        I have had the project explained to me, and I have read the Explanatory Statement,
+        which I can keep for my records. I understand that agreeing to take part means that:
+    </p>
+
+    <p> I agree to participate in a computer-based experimental procedure. </p>
+
+    <p> I agree to complete relevant questionnaires.
+        I also understand that my answers on these questionnaires are both confidential and voluntary.</p>
+
+
+
+    <br />
+
+    {% formfield player.consent %}
+
     {% next_button %}
 
 {% endblock %}

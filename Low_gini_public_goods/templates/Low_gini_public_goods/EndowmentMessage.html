@@ -28,8 +28,18 @@
 
 {% block content %}
     <p>
-    Your endowment will be {{ player.my_endowment }}
+    For the next block, your endowment will be {{ player.my_endowment }} per round.
     </p>
+    <p>
+    This means that your cost of voluntary self-isolation ranges from:
+        <br />
+        0 for no self-isolation to {{ player.maximum_contribution }} for complete self-isolation.
+    </p>
+    <p>
+    Sometimes this message appears during lockdown, then your payment will be adjusted
+    according to your new endowment.
+    </p>
+
     <p>
     Please proceed to the next page.
     </p>

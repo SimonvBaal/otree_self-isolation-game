@@ -10,12 +10,6 @@ from otree.api import (
 )
 
 
-doc = """
-This application provides a webpage instructing participants how to get paid.
-Examples are given for the lab and Amazon Mechanical Turk (AMT).
-"""
-
-
 class Constants(BaseConstants):
     name_in_url = 'payment_info'
     players_per_group = None

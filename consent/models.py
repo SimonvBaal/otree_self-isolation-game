@@ -32,4 +32,18 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
+    consent = models.BooleanField(
+        choices=[
+            [True, 'Yes, I consent and agree to future use of my data.'],
+            [False, 'No, I do not consent or agree to future use of my data.']
+        ],
+        label='Do you consent to your participation and future use of your data?'
+    )
+
+    understanding = models.BooleanField(
+        choices=[
+            [True, 'Yes, I understand the above.'],
+            [False, 'No, I do not understand the above.']
+        ],
+        label='Do you understand the above?'
+    )

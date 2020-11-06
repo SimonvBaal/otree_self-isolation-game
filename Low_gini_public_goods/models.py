@@ -14,20 +14,20 @@ from otree.api import (
 author = 'Simon van Baal, Monash University'
 
 doc = """
-A public goods game, with public health as the good and self-isolation as the contribution.
+A public goods game, with public health as the good and voluntary self-isolation as the contribution.
 """
 
 
 class Constants(BaseConstants):
-    name_in_url = 'LG_public_goods'
-    players_per_group = 3
+    name_in_url = 'public_goods_game'
+    players_per_group = 10
     num_rounds = 40
     endowment = c(1)
     # Richest u equally share f of the income, others equally share remainder, then G = f - u. 25 = 50 - 25
     instructions_template = 'Low_gini_public_goods/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
-    shirking_sensitivity = 4
+    shirking_sensitivity = 5
 
 
 class Subsession(BaseSubsession):
@@ -71,95 +71,95 @@ class Group(BaseGroup):
             if self.round_number <= 10:
                 # Equality Condition
                 for p in self.get_players:
-                    p.my_endowment = 20
+                    p.my_endowment = 100
             elif self.round_number >= 11 & self.round_number <= 20:
                 # Low Gini Condition (Gini = 24)
                 for p in self.get_players():
                     if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
-                        p.my_endowment = 32
+                        p.my_endowment = 160
                     else:
-                        p.my_endowment = 12
+                        p.my_endowment = 60
             elif self.round_number >= 21 & self.round_number <= 30:
                 # High Gini Condition (Gini = 42)
                 for p in self.get_players():
                     if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
-                        p.my_endowment = 48
+                        p.my_endowment = 240
                     else:
-                        p.my_endowment = 8
+                        p.my_endowment = 40
             else:
                 # Poverty for all Condition
                 for p in self.get_players():
-                    p.my_endowment = 10
+                    p.my_endowment = 50
         elif self.session.config['condition'] == 'Lo-Po-Eq-Hi':
             if self.round_number <= 10:
                 # Low Gini Condition (Gini = 24)
                 for p in self.get_players():
                     if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
-                        p.my_endowment = 32
+                        p.my_endowment = 160
                     else:
-                        p.my_endowment = 12
+                        p.my_endowment = 60
             elif self.round_number >= 11 & self.round_number <= 20:
                 # Poverty for all Condition
                 for p in self.get_players():
-                    p.my_endowment = 10
+                    p.my_endowment = 50
             elif self.round_number >= 21 & self.round_number <= 30:
                 # Equality Condition
                 for p in self.get_players():
-                    p.my_endowment = 20
+                    p.my_endowment = 100
             else:
                 # High Gini Condition (Gini = 42)
                 for p in self.get_players():
                     if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
-                        p.my_endowment = 48
+                        p.my_endowment = 240
                     else:
-                        p.my_endowment = 8
+                        p.my_endowment = 40
         elif self.session.config['condition'] == 'Po-Hi-Lo-Eq':
             if self.round_number <= 10:
                 # Poverty for all Condition
                 for p in self.get_players():
-                    p.my_endowment = 10
+                    p.my_endowment = 50
             elif self.round_number <= 20:
                 # High Gini Condition (Gini = 42)
                 for p in self.get_players():
                     if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
-                        p.my_endowment = 48
+                        p.my_endowment = 240
                     else:
-                        p.my_endowment = 8
+                        p.my_endowment = 40
             elif self.round_number <= 30:
                 # Low Gini Condition (Gini = 24)
                 for p in self.get_players():
                     if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
-                        p.my_endowment = 32
+                        p.my_endowment = 160
                     else:
-                        p.my_endowment = 12
+                        p.my_endowment = 60
             else:
                 # Equality Condition
                 for p in self.get_players():
-                    p.my_endowment = 20
+                    p.my_endowment = 100
         else:
             # Hi-Eq-Po-Lo
             if self.round_number <= 10:
                 # High Gini Condition (Gini = 42)
                 for p in self.get_players():
                     if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
-                        p.my_endowment = 48
+                        p.my_endowment = 240
                     else:
-                        p.my_endowment = 8
+                        p.my_endowment = 40
             elif self.round_number <= 20:
                 # Equality Condition
                 for p in self.get_players():
-                    p.my_endowment = 20
+                    p.my_endowment = 100
             elif self.round_number <= 20:
                 # Poverty for all Condition
                 for p in self.get_players():
-                    p.my_endowment = 10
+                    p.my_endowment = 50
             else:
                 # Low Gini Condition (Gini = 24)
                 for p in self.get_players():
                     if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
-                        p.my_endowment = 32
+                        p.my_endowment = 160
                     else:
-                        p.my_endowment = 12
+                        p.my_endowment = 60
 
         if self.round_number == 1:
             self.total_infections = 1
@@ -279,7 +279,7 @@ class Group(BaseGroup):
         else:
             # If they are in lockdown:
             for p in self.get_players():
-                p.payoff = p.my_endowment * .4
+                p.payoff = p.my_endowment * .3
                 if self.round_number == 1:
                     p.cumulative_earnings = p.payoff
                     self.lockdown_round = 1
@@ -289,6 +289,10 @@ class Group(BaseGroup):
         self.average_earnings = sum([p.payoff for p in self.get_players()])/len(self.get_players())
         self.total_earnings = sum([p.payoff for p in self.get_players()])
         self.end_total_infections = sum([p.infected for p in self.get_players()])
+
+    def average_endowment(self):
+        return sum([p.my_endowment for p in self.get_players()])/len(self.get_players())
+
 
 
 class Player(BasePlayer):
@@ -366,3 +370,6 @@ class Player(BasePlayer):
 
     def payment(self):
         self.participant.earnings = self.cumulative_earnings
+
+    def maximum_contribution(self):
+        return self.my_endowment * .4

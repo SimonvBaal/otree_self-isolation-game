@@ -6,16 +6,31 @@
 {% endblock %}
 
 {% block content %}
-    This is a public goods game where you will play for points. Each point is worth 1 pence (GBP 0.01).
-    You will play multiple rounds, and for each round your endowment is {{ Constants.endowment }}.
-    There will be other participants in your group, who are also playing for points.
-    You are all trying to avoid a lockdown because in a lockdown you will be able to earn less money.
-    <br />
+    <p>
+    This is a public goods game where you will play for points. 100 points is worth 10 pence (GBP 0.10).
+    You will play 30-50 rounds, the amount of points you get per round will change
+    occasionally. There will be other participants in your group, who are also playing for points.
+    There is an infectious disease in the group and you are all trying to avoid a lockdown.
+    In a lockdown you will be able to earn less money. In order to avoid this, you can stay home
+    (i.e. self-isolate), but this costs money. Moderate self-isolation costs 20% of your points, and
+    complete self-isolation costs 40% of your points.
+    </p>
+    <p>
+    A randomly assigned participant is 'Patient Zero'; they have the virus.
+    You do not know who it is (it could be you). If Patient Zero comes in contact
+    with a member of the general population because both parties don't self-isolate
+    sufficiently, then Patient Zero can give the virus to that person. If half the people
+    in the group have the virus, then your group will go into lockdown for two rounds.
+    During lockdown, you earn much less money (30% of that round's points).
+    </p>
+    <p>
+    Each page will have a timer that only appears when you start running out of time,
+    please make sure to submit your answers before it runs out. Your payment is dependent on
+    whether you answer on time.
+    </p>
 
     Below are specific instructions, read them carefully.
-    <br />
 
-    Each page will have a timer, please make sure to submit your answers before it runs out.
     {% include Constants.instructions_template %}
 
     {% next_button %}
