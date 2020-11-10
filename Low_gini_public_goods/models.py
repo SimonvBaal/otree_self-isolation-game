@@ -27,7 +27,7 @@ class Constants(BaseConstants):
     instructions_template = 'Low_gini_public_goods/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
-    shirking_sensitivity = 4
+    shirking_sensitivity = 10
 
 
 class Subsession(BaseSubsession):
@@ -61,6 +61,7 @@ class Group(BaseGroup):
     lockdown_round = models.IntegerField(initial=0)
     lockdown_number = models.IntegerField(initial=0)
     number_of_players = models.IntegerField()
+    patient_zero_switch = models.BooleanField()
 
     def set_lockdown(self):
         # Set lockdown variables for upcoming round
@@ -207,18 +208,37 @@ class Group(BaseGroup):
              (float(len(self.get_players())) *
               float(4)) * 100.0), 2))
 
-        # Infection assignment from last round
+        # Infection assignment by drawing a random number every round
+        random_number = random.randint(1, len(self.get_players()))
+        print("the random number is:", random_number)
+        self.patient_zero_switch = False
         for p in self.get_players():
-            if self.lockdown_number < len(self.get_players()) and p.id_in_group == self.lockdown_number + 1:
-                p.infected = 1
-                print("I'm Patient Zero")
-            elif self.lockdown_number >= len(self.get_players()) and p.id_in_group == self.lockdown_number - len(
-                    self.get_players() + 1):
-                p.infected = 1
-                print("I'm Patient Zero")
+            if self.round_number == 1:
+                if p.id_in_group == random_number:
+                    # Choose random player to be infected in round 1
+                    p.infected = 1
+                    print("I'm player number:", p.id_in_group, "I'm Patient Zero")
+                else:
+                    p.infected = 0
+            elif self.round_number > 3 and \
+                    self.in_round(self.round_number - 1).total_infections == 1 and \
+                    self.in_round(self.round_number - 2).total_infections == 1 and not\
+                    self.in_round(self.round_number - 1).patient_zero_switch and not \
+                    self.in_round(self.round_number - 2).patient_zero_switch and not \
+                    self.in_round(self.round_number - 3).patient_zero_switch:
+                # If there are no new infections for a few rounds, we shuffle.
+                self.patient_zero_switch = True
+                if p.id_in_group == random_number:
+                    p.infected = 1
+                    print("We had to switch patient zeros, I am now patient zero:", p.id_in_group)
+                else:
+                    p.infected = 0
             elif self.round_number != 1 and self.in_round(self.round_number - 1).lockdown:
-                p.infected = 0
-                print("I'm No longer infected after lockdown")
+                if p.id_in_group == random_number:
+                    p.infected = 1
+                    print("We came out of lockdown, I'm now the new patient zero:", p.id_in_group)
+                else:
+                    p.infected = 0
             elif self.round_number != 1 and p.in_round(self.round_number - 1).infected == 1:
                 p.infected = 1
                 print("Players were infected in previous round, so they're still infected")
@@ -246,7 +266,7 @@ class Group(BaseGroup):
             for p in self.get_players():
                 if p.infected == 0:
                     p.transmission_chance = round((1.0 - float(p.contribution) /
-                                           float(4)) * infection_pool, 2)
+                                                   float(4)) * infection_pool, 2)
                     if random.random() <= p.transmission_chance:
                         p.infected = 1
                         print("I'm now infected")
@@ -261,21 +281,18 @@ class Group(BaseGroup):
         if not self.lockdown:
             for p in self.get_players():
                 # Set payoffs
-                p.actual_payment = float(p.contribution)*.1*float(p.my_endowment)
-                if p.second_player_contribution_0 == 5 or p.second_player_contribution_1 == 5\
-                        or p.second_player_contribution_2 == 5 or p.second_player_contribution_3 == 5\
+                p.actual_payment = float(p.contribution) * .1 * float(p.my_endowment)
+                if p.second_player_contribution_0 == 5 or p.second_player_contribution_1 == 5 \
+                        or p.second_player_contribution_2 == 5 or p.second_player_contribution_3 == 5 \
                         or p.second_player_contribution_4 == 5:
                     p.payoff = 0
-                    print("I didn't do anything, so I don't get paid.")
                 else:
-                    p.payoff = (float(p.my_endowment) - float(p.contribution)*.1*float(p.my_endowment))
+                    p.payoff = (float(p.my_endowment) - float(p.contribution) * .1 * float(p.my_endowment))
 
                 if self.round_number == 1:
                     p.cumulative_earnings = p.payoff
-                    print("I got money", p.payoff)
                 else:
                     p.cumulative_earnings += p.payoff + p.in_round(self.round_number - 1).cumulative_earnings
-                    print("I got money", p.payoff)
         else:
             # If they are in lockdown:
             for p in self.get_players():
@@ -286,13 +303,12 @@ class Group(BaseGroup):
                 else:
                     p.cumulative_earnings += p.payoff + p.in_round(self.round_number - 1).cumulative_earnings
 
-        self.average_earnings = sum([p.payoff for p in self.get_players()])/len(self.get_players())
+        self.average_earnings = sum([p.payoff for p in self.get_players()]) / len(self.get_players())
         self.total_earnings = sum([p.payoff for p in self.get_players()])
         self.end_total_infections = sum([p.infected for p in self.get_players()])
 
     def average_endowment(self):
-        return sum([p.my_endowment for p in self.get_players()])/len(self.get_players())
-
+        return sum([p.my_endowment for p in self.get_players()]) / len(self.get_players())
 
 
 class Player(BasePlayer):
