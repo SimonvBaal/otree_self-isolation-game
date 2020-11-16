@@ -29,6 +29,20 @@ SESSION_CONFIGS = [
         app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
         condition='Eq-Lo-Hi-Po'
     ),
+    dict(
+        name='Public_Goods_Game_Lo_Hi',
+        display_name='Public Goods Game 2020 (Lo->Hi)',
+        num_demo_participants=10,
+        app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
+        condition='Lo-Po-Eq-Hi'
+    ),
+    dict(
+        name='Public_Goods_Game_Po_Eq',
+        display_name='Public Goods Game 2020 (Po->Eq)',
+        num_demo_participants=10,
+        app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
+        condition='Po-Hi-Lo-Eq'
+    ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
