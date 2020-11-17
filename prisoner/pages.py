@@ -6,6 +6,9 @@ from .models import Constants
 class Introduction(Page):
     timeout_seconds = 100
 
+    def is_displayed(self):
+        return self.round_number == 1
+
 
 class Decision(Page):
     form_model = 'player'
