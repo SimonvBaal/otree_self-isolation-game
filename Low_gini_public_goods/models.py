@@ -73,14 +73,14 @@ class Group(BaseGroup):
                 # Equality Condition
                 for p in self.get_players():
                     p.my_endowment = 100
-            elif self.round_number >= 11 & self.round_number <= 20:
+            elif self.round_number <= 20:
                 # Low Gini Condition (Gini = 24)
                 for p in self.get_players():
                     if p.id_in_group == 2 or p.id_in_group == 3 or p.id_in_group == 7 or p.id_in_group == 8:
                         p.my_endowment = 160
                     else:
                         p.my_endowment = 60
-            elif self.round_number >= 21 & self.round_number <= 30:
+            elif self.round_number <= 30:
                 # High Gini Condition (Gini = 42)
                 for p in self.get_players():
                     if p.id_in_group == 1 or p.id_in_group == 4 or p.id_in_group == 5:
@@ -99,11 +99,11 @@ class Group(BaseGroup):
                         p.my_endowment = 160
                     else:
                         p.my_endowment = 60
-            elif self.round_number >= 11 & self.round_number <= 20:
+            elif self.round_number <= 20:
                 # Poverty for all Condition
                 for p in self.get_players():
                     p.my_endowment = 50
-            elif self.round_number >= 21 & self.round_number <= 30:
+            elif self.round_number <= 30:
                 # Equality Condition
                 for p in self.get_players():
                     p.my_endowment = 100
@@ -150,7 +150,7 @@ class Group(BaseGroup):
                 # Equality Condition
                 for p in self.get_players():
                     p.my_endowment = 100
-            elif self.round_number <= 20:
+            elif self.round_number <= 30:
                 # Poverty for all Condition
                 for p in self.get_players():
                     p.my_endowment = 50
