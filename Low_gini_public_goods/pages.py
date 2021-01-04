@@ -23,14 +23,6 @@ class NewRound(WaitPage):
     after_all_players_arrive = 'set_lockdown'
     body_text = 'Waiting for the other players to click through.'
 
-
-class EndowmentMessage(Page):
-    def is_displayed(self):
-        if self.round_number == 1 or self.round_number == 11 or self.round_number == 21 or self.round_number == 31:
-            return True
-        else:
-            return False
-
     def get_timeout_seconds(self):
         return 30
 
@@ -67,11 +59,11 @@ class SecondPlayerContribute(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.second_player_contribution_0 = 5
-            self.player.second_player_contribution_1 = 5
-            self.player.second_player_contribution_2 = 5
-            self.player.second_player_contribution_3 = 5
-            self.player.second_player_contribution_4 = 5
+            self.player.second_player_contribution_0 = None
+            self.player.second_player_contribution_1 = None
+            self.player.second_player_contribution_2 = None
+            self.player.second_player_contribution_3 = None
+            self.player.second_player_contribution_4 = None
 
     form_model = 'player'
     form_fields = ['second_player_contribution_0',
@@ -99,6 +91,7 @@ class Contribute(Page):
     def before_next_page(self):
         if self.timeout_happened:
             self.player.contribution = 4
+            self.player.timeout = True
 
     form_model = 'player'
     form_fields = ['contribution']
@@ -127,7 +120,7 @@ class FinalResults(Page):
 
 
 page_sequence = [StartWaitPage, Introduction,
-                 NewRound, EndowmentMessage,
-                 LockDownMessage, SecondPlayerContribute,
-                 Contribute, ResultsWaitPage,
-                 Results, FinalResults]
+                 NewRound, LockDownMessage,
+                 SecondPlayerContribute, Contribute,
+                 ResultsWaitPage, Results,
+                 FinalResults]

@@ -5,9 +5,9 @@ SESSION_CONFIGS = [
     dict(
         name='Only_Public_Goods',
         display_name="Only Public Goods",
-        num_demo_participants=10,
+        num_demo_participants=3,
         app_sequence=['Low_gini_public_goods'],
-        condition='Eq-Lo-Hi-Po',
+        condition='LF',
     ),
     dict(
         name='survey',
@@ -16,33 +16,20 @@ SESSION_CONFIGS = [
         app_sequence=['survey', 'payment_info'],
     ),
     dict(
-        name='Public_Goods_Game_Hi_Lo',
-        display_name='Public Goods Game 2020 (Hi->Lo)',
-        num_demo_participants=10,
+        name='Public_Goods_Game_LF',
+        display_name='Public Goods Game 2020 (LF)',
+        num_demo_participants=3,
         app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
-        condition='Hi-Eq-Po-Lo'
+        condition='LF'
     ),
     dict(
-        name='Public_Goods_Game_Eq_Po',
-        display_name='Public Goods Game 2020 (Eq->Po)',
-        num_demo_participants=10,
+        name='Public_Goods_Game_HF',
+        display_name='Public Goods Game 2020 (HF)',
+        num_demo_participants=3,
         app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
-        condition='Eq-Lo-Hi-Po'
+        condition='HF'
     ),
-    dict(
-        name='Public_Goods_Game_Lo_Hi',
-        display_name='Public Goods Game 2020 (Lo->Hi)',
-        num_demo_participants=10,
-        app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
-        condition='Lo-Po-Eq-Hi'
-    ),
-    dict(
-        name='Public_Goods_Game_Po_Eq',
-        display_name='Public Goods Game 2020 (Po->Eq)',
-        num_demo_participants=10,
-        app_sequence=['consent', 'survey', 'Low_gini_public_goods', 'payment_info'],
-        condition='Po-Hi-Lo-Eq'
-    ),
+
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -67,9 +54,6 @@ ROOMS = [
         name='Prolific_Room',
         display_name='Prolific - Public Goods Game'
     ),
-    dict(
-        name='Pilot_experiment',
-        display_name='Prolific - Pilot experiment'),
 ]
 
 ADMIN_USERNAME = 'admin'

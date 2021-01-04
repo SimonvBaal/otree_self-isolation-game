@@ -56,11 +56,11 @@ class SecondPlayerContribute(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.second_player_contribution_0 = 5
-            self.player.second_player_contribution_1 = 5
-            self.player.second_player_contribution_2 = 5
-            self.player.second_player_contribution_3 = 5
-            self.player.second_player_contribution_4 = 5
+            self.player.second_player_contribution_0 = None
+            self.player.second_player_contribution_1 = None
+            self.player.second_player_contribution_2 = None
+            self.player.second_player_contribution_3 = None
+            self.player.second_player_contribution_4 = None
 
     form_model = 'player'
     form_fields = ['second_player_contribution_0',
@@ -87,7 +87,9 @@ class Contribute(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
+            # Assign full contribution, such that they will not unnecessarily disadvantage group members.
             self.player.contribution = 4
+            self.player.timeout = True
 
     form_model = 'player'
     form_fields = ['contribution']
