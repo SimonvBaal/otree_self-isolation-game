@@ -8,11 +8,14 @@
 {% block content %}
     <p>
         This is a public goods game where you will play for points. 100 points is worth 10 pence (GBP 0.20).
-        You will play 30-50 rounds, you will get {{ constants.endowment }} each round.
-        There will be other participants in your group, who are also playing for points.
+        You will play 30-50 rounds, you will get {{ Constants.endowment }} each round.
+        There will be other participants in your group, who are also playing for points and face the same payoffs.
         In addition, there is an infectious disease in the group and if the disease gets out of hand,
-        your group will be in lockdown. A lockdown will cost a lot of points
-        (either 60% of your points, or 80% of your points) for 2 rounds. In order to avoid this,
+        your group will be in lockdown.
+    </p>
+    <p>
+        A lockdown will cost all players in the group a lot of points
+        (either 60% of points, or 90% of points) for 2 rounds. In order to avoid this,
         you can stay home (i.e. self-isolate), but this costs money. Moderate self-isolation costs 20% of your points,
         and complete self-isolation costs 40% of your points.
     </p>
@@ -21,7 +24,8 @@
         You do not know who it is (it could be you). If Patient Zero comes in contact
         with a member of the general population because both parties don't self-isolate
         sufficiently, then Patient Zero can give the virus to that person. Getting the virus does NOT cost points.
-        If more than half of the people in the group have the virus, then your group will go into lockdown for 2 rounds.
+        However, if more than half of the people in the group have the virus,
+        then your group will go into lockdown for 2 rounds.
     </p>
     <p>
         Each page will have a timer that only appears when you start running out of time,

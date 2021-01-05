@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 10) {
+                    $('.otree-timer').show();
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    The Cost of Lockdown has Changed
+{% endblock %}
+
+{% block content %}
+    <p>
+        Lockdowns last for 2 rounds and will now cost {{ group.lockdown_cost }}.
+        This means that {{ group.lockdown_cost }} will be deducted from your endowment in lockdown rounds.
+    </p>
+    <p>
+        If the cost of lockdown was 60% before, then this has now increased by 30 points.
+        If the cost of lockdown was 90% before, then this has now decreased by 30 points.
+    </p>
+    <p>
+        This change sometimes comes during a lockdown, which means that the lockdown in the current round will cost
+        the new amount - {{ group.lockdown_cost }}.
+    </p>
+    <p>
+        Please proceed.
+    </p>
+
+    {% next_button %}
+    {% comment %} {% endcomment %}
+
+{% endblock %}

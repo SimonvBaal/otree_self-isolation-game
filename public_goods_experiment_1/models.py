@@ -23,7 +23,7 @@ class Constants(BaseConstants):
     players_per_group = 3 # Adjust!!
     num_rounds = 40
     endowment = c(100)
-    instructions_template = 'Low_gini_public_goods/instructions.html'
+    instructions_template = 'public_goods_experiment_1/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
     shirking_sensitivity = 10
@@ -71,12 +71,12 @@ class Group(BaseGroup):
                 self.lockdown_cost = 60
             else:
                 # High lockdown cost condition
-                self.lockdown_cost = 80
+                self.lockdown_cost = 90
         else:
             # High lockdown cost condition first
             if self.round_number <= 20:
                 # High lockdown cost condition
-                self.lockdown_cost = 80
+                self.lockdown_cost = 90
             else:
                 # Low lockdown cost condition
                 self.lockdown_cost = 60
@@ -119,9 +119,16 @@ class Group(BaseGroup):
         # In case of lockdown we set players' contributions to zero.
         if self.lockdown:
             for p in self.get_players():
-                p.contribution = None
-
+                p.contribution = 0
+                p.others_contribution_percentage = 0
         self.total_contribution = sum([p.contribution for p in self.get_players()])
+        if not self.lockdown:
+            for p in self.get_players():
+                p.others_contribution_percentage = (round(
+            (float(self.total_contribution - p.contribution) /
+             (float(len(self.get_players())-1) *
+              float(4)) * 100.0), 2))
+
         self.contribution_percentage = (round(
             (float(self.total_contribution) /
              (float(len(self.get_players())) *
@@ -200,7 +207,10 @@ class Group(BaseGroup):
         if not self.lockdown:
             for p in self.get_players():
                 # Set payoffs
-                p.actual_payment = float(p.contribution) * .1 * float(Constants.endowment)
+                if p.timeout is True:
+                    p.actual_payment == None
+                else:
+                    p.actual_payment = float(p.contribution) * .1 * float(Constants.endowment)
                 if p.second_player_contribution_0 is None or p.second_player_contribution_1 is None \
                         or p.second_player_contribution_2 is None or p.second_player_contribution_3 is None \
                         or p.second_player_contribution_4 is None:
@@ -247,6 +257,7 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelectHorizontal
     )
+    others_contribution_percentage = models.FloatField()
     timeout = models.BooleanField(initial=False)
     second_player_contribution_0 = models.CurrencyField(
         label="If the group self-isolation average were - Not at all",

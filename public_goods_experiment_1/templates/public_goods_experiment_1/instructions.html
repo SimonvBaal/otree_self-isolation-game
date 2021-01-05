@@ -7,7 +7,7 @@
     </h3>
 
     <p>
-        You are given a variable number of points for every round (called endowment).
+        You are given {{ Constants.endowment }} for every round (called endowment).
         Every participant can choose how much to stay home (self-isolate) in order to
         limit the spread of the virus. Self-isolation costs points, for example: moderate self-isolation costs
         20% of that round's points and complete self-isolation costs 40% of that round's points.
@@ -21,10 +21,12 @@
         The earnings from the project are calculated as follows:
     </p>
     <p>
-        Your endowment in each round will depend on whether you are in lockdown, and your endowments are
-        occasionally reshuffled. Each round's payoff equals your endowment, minus the
-        amount you contribute. Please do your best to answer each question,
-        otherwise we cannot pay you for that round.
+        Your endowment in each round will depend on whether you are in lockdown, but is otherwise 100 points.
+        Each round's payoff equals your endowment, minus the amount you contribute by self-isolating.
+    </p>
+    <p>
+        Please do your best to answer each question because we cannot pay you for rounds where you didn't answer
+        every question.
     </p>
     </div>
 </div>

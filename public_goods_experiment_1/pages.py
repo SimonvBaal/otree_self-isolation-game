@@ -23,9 +23,18 @@ class NewRound(WaitPage):
     after_all_players_arrive = 'set_lockdown'
     body_text = 'Waiting for the other players to click through.'
 
+
+
+
+class ConditionChange(Page):
+    def is_displayed(self):
+        if self.round_number == 21:
+            return True
+        else:
+            return False
+
     def get_timeout_seconds(self):
         return 30
-
 
 class LockDownMessage(Page):
     def is_displayed(self):
@@ -120,7 +129,8 @@ class FinalResults(Page):
 
 
 page_sequence = [StartWaitPage, Introduction,
-                 NewRound, LockDownMessage,
+                 NewRound, ConditionChange,
+                 LockDownMessage,
                  SecondPlayerContribute, Contribute,
                  ResultsWaitPage, Results,
                  FinalResults]

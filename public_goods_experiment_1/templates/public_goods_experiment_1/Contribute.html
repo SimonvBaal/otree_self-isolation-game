@@ -21,24 +21,25 @@
     </script>
 {% endblock %}
 
-
 {% block title %}
-    Self-isolation Decision Based on Group Average
+    Self-isolation decision
 {% endblock %}
 
+
+
 {% block content %}
-    If you knew what the average self-isolation level of the others in the group was in this round,
-    how much would you self-isolate?
 
     <table class="table-condensed" style="width:500px; margin-top:20px;">
         <tr><td>Total infections in the group:</td><td>{{ group.total_infections }}</td></tr>
-        <tr><td>Number of players in the group:</td><td>{{ group.number_of_players }}</td></tr>
+        <tr><td>Number of players in the group:</td><td>{{ Constants.players_per_group }}</td></tr>
         <tr><td colspan="2"><hr/></td></tr>
-        <tr><td>Cost per round of lockdown:</td><td>{{ group.lockdown_cost }}</td></tr>
+        <tr><td>Endowment per round:</td><td>{{ Constants.endowment }}</td></tr>
+        <tr><td>Cost of lockdown per round:</td><td>{{ group.lockdown_cost }}</td></tr>
     </table>
-<p>
-    {% formfields %}
-</p>
+    <br />
+
+    {% formfield player.contribution %}
+
     {% next_button %}
     {% comment %} {% endcomment %}
 
