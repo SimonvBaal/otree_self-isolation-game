@@ -314,6 +314,17 @@ class Player(BasePlayer):
         ],
         widget=widgets.RadioSelectHorizontal
     )
+    others_prediction = models.CurrencyField(
+        label="On average, how much do you think others will self-isolate in this round?",
+        choices=[
+            [0, "Not at all"],
+            [1, "Slightly"],
+            [2, "Moderately"],
+            [3, "Stringently"],
+            [4, "Completely"]
+        ],
+        widget=widgets.RadioSelectHorizontal
+    )
 
     def payment(self):
         self.participant.earnings = self.cumulative_earnings

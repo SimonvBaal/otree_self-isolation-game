@@ -24,8 +24,6 @@ class NewRound(WaitPage):
     body_text = 'Waiting for the other players to click through.'
 
 
-
-
 class ConditionChange(Page):
     def is_displayed(self):
         if self.round_number == 21:
@@ -35,6 +33,7 @@ class ConditionChange(Page):
 
     def get_timeout_seconds(self):
         return 30
+
 
 class LockDownMessage(Page):
     def is_displayed(self):
@@ -82,6 +81,28 @@ class SecondPlayerContribute(Page):
                    'second_player_contribution_4']
 
 
+class OthersPrediction(Page):
+    timer_text = "Time left to submit your decision:"
+
+    def is_displayed(self):
+        if self.group.lockdown:
+            return False
+        else:
+            return True
+
+    def get_timeout_seconds(self):
+        if self.round_number == 1:
+            return 25
+        else:
+            return 15
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.others_prediction = None
+
+    form_model = 'player'
+    form_fields = ['others_prediction']
+
 class Contribute(Page):
     timer_text = "Time left to submit your decision:"
 
@@ -93,7 +114,7 @@ class Contribute(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 45
+            return 35
         else:
             return 15
 
@@ -131,6 +152,7 @@ class FinalResults(Page):
 page_sequence = [StartWaitPage, Introduction,
                  NewRound, ConditionChange,
                  LockDownMessage,
-                 SecondPlayerContribute, Contribute,
+                 SecondPlayerContribute, OthersPrediction,
+                 Contribute,
                  ResultsWaitPage, Results,
                  FinalResults]
