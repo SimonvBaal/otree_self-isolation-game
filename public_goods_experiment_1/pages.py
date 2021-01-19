@@ -103,6 +103,7 @@ class OthersPrediction(Page):
     form_model = 'player'
     form_fields = ['others_prediction']
 
+
 class Contribute(Page):
     timer_text = "Time left to submit your decision:"
 

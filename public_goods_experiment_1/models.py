@@ -208,12 +208,12 @@ class Group(BaseGroup):
             for p in self.get_players():
                 # Set payoffs
                 if p.timeout is True:
-                    p.actual_payment == None
+                    p.actual_payment = None
                 else:
                     p.actual_payment = float(p.contribution) * .1 * float(Constants.endowment)
                 if p.second_player_contribution_0 is None or p.second_player_contribution_1 is None \
                         or p.second_player_contribution_2 is None or p.second_player_contribution_3 is None \
-                        or p.second_player_contribution_4 is None:
+                        or p.second_player_contribution_4 is None or p.others_prediction is None:
                     p.payoff = 0
                     print("I didn't do my hypotheticals, so no payment")
                 elif p.timeout is True:
