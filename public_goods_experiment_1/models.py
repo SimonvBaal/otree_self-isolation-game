@@ -26,7 +26,7 @@ class Constants(BaseConstants):
     instructions_template = 'public_goods_experiment_1/instructions.html'
     lockdown_duration = 2
     threshold_lockdown = .51
-    shirking_sensitivity = 10
+    shirking_sensitivity = 11
 
 
 class Subsession(BaseSubsession):
