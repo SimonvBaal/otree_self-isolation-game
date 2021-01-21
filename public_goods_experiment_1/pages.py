@@ -14,6 +14,8 @@ class Introduction(Page):
 
 class StartWaitPage(WaitPage):
     group_by_arrival_time = True
+    body_text = \
+        'The other participants are still filling out their surveys. The experiment will start as soon as they finish.'
 
     def is_displayed(self):
         return self.round_number == 1
@@ -45,9 +47,9 @@ class LockDownMessage(Page):
 
     def get_timeout_seconds(self):
         if self.group.lockdown_number == 1 and self.group.lockdown_round == 1:
-            return 20
+            return 25
         else:
-            return 10
+            return 15
 
 
 class SecondPlayerContribute(Page):
@@ -63,7 +65,7 @@ class SecondPlayerContribute(Page):
         if self.round_number == 1:
             return 60
         else:
-            return 25
+            return 45
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -92,7 +94,7 @@ class OthersPrediction(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 25
+            return 30
         else:
             return 15
 
@@ -115,7 +117,7 @@ class Contribute(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 35
+            return 30
         else:
             return 15
 
@@ -139,7 +141,7 @@ class Results(Page):
         if self.round_number == 1:
             return 30
         else:
-            return 10
+            return 15
 
 
 class FinalResults(Page):
