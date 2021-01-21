@@ -4,6 +4,8 @@ from .models import Constants
 
 
 class Introduction(Page):
+    timeout_seconds = 180
+
     def is_displayed(self):
         # display the page in the first round
         if self.round_number == 1:
@@ -65,7 +67,7 @@ class SecondPlayerContribute(Page):
         if self.round_number == 1:
             return 80
         else:
-            return 45
+            return 40
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -96,7 +98,7 @@ class OthersPrediction(Page):
         if self.round_number == 1:
             return 30
         else:
-            return 20
+            return 17
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -119,7 +121,7 @@ class Contribute(Page):
         if self.round_number == 1:
             return 30
         else:
-            return 20
+            return 17
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -139,9 +141,9 @@ class Results(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 30
+            return 25
         else:
-            return 15
+            return 10
 
 
 class FinalResults(Page):
