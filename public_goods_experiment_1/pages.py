@@ -96,7 +96,7 @@ class OthersPrediction(Page):
         if self.round_number == 1:
             return 30
         else:
-            return 15
+            return 20
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -119,7 +119,7 @@ class Contribute(Page):
         if self.round_number == 1:
             return 30
         else:
-            return 15
+            return 20
 
     def before_next_page(self):
         if self.timeout_happened:
