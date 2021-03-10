@@ -20,7 +20,7 @@ A public goods game, with public health as the good and voluntary self-isolation
 
 class Constants(BaseConstants):
     name_in_url = 'public_goods_game'
-    players_per_group = 11
+    players_per_group = 3
     num_rounds = 40
     endowment = c(100)
     instructions_template = 'public_goods_experiment_1/instructions.html'
@@ -63,7 +63,7 @@ class Group(BaseGroup):
     patient_zero_switch = models.BooleanField()
 
     def set_lockdown(self):
-
+        # Set conditions according to treatment
         if self.session.config['condition'] == 'LF':
             # Low lockdown cost condition first
             if self.round_number <= 20:
@@ -181,7 +181,7 @@ class Group(BaseGroup):
                                                    float(4))
                 print("infection pool", infection_pool)
 
-        # Sensitivity to shirking
+        # Sensitivity to low self-isolation levels
         infection_pool = infection_pool / (float(len(self.get_players())) / float(Constants.shirking_sensitivity))
         print("unadjusted infection pool:", infection_pool)
         if infection_pool > 1:

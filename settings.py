@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
     dict(
         name='Only_Public_Goods',
         display_name="Only Public Goods",
-        num_demo_participants=11,
+        num_demo_participants=3,
         app_sequence=['public_goods_experiment_1'],
         condition='HF',
     ),
@@ -18,14 +18,14 @@ SESSION_CONFIGS = [
     dict(
         name='Public_Goods_Game_LF',
         display_name='Public Goods Game 2020 (LF)',
-        num_demo_participants=11,
+        num_demo_participants=3,
         app_sequence=['consent', 'survey', 'public_goods_experiment_1', 'end_survey', 'payment_info'],
         condition='LF'
     ),
     dict(
         name='Public_Goods_Game_HF',
         display_name='Public Goods Game 2020 (HF)',
-        num_demo_participants=11,
+        num_demo_participants=3,
         app_sequence=['consent', 'survey', 'public_goods_experiment_1', 'end_survey', 'payment_info'],
         condition='HF'
     ),
