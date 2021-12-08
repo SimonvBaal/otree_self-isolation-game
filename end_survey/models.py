@@ -25,7 +25,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-
+    # Here we can ask participants questions about their experience of the game, e.g.:
     others_feedback = models.StringField(
         label='''In full sentences: what did you think of the way the other group members played the game?'''
     )
