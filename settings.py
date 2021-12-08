@@ -3,31 +3,19 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='Self-Isolation_Game',
-        display_name="Only Self-Isolation Game",
+        name='Self-Isolation_Game_HF', # High lockdown cost first (HF)
+        display_name="Self-Isolation Game (HF)",
         num_demo_participants=3, # If you want to play a demo, then make sure models.py has 3 players.
-        app_sequence=['public_goods_experiment_1'],
+        app_sequence=['self-isolation-game'], # this is where you can add 'end survey' etc.
         condition='HF',
     ),
-    dict(
-        name='Survey_Only',
-        display_name='Survey Only',
-        num_demo_participants=1,
-        app_sequence=['survey', 'end_survey', 'payment_info'],
-    ),
+
     dict(
         name='Self-Isolation_Game_LF', # Low lockdown cost first (LF)
         display_name='Self-Isolation Game (LF)',
         num_demo_participants=3,
-        app_sequence=['consent', 'survey', 'self-isolation-game', 'end_survey', 'payment_info'],
+        app_sequence=['self-isolation-game'],
         condition='LF'
-    ),
-    dict(
-        name='Self-Isolation_Game_HF',
-        display_name='Self-Isolation Game (HF)',
-        num_demo_participants=3,
-        app_sequence=['consent', 'survey', 'self-isolation-game', 'end_survey', 'payment_info'],
-        condition='HF'
     ),
 
 ]
