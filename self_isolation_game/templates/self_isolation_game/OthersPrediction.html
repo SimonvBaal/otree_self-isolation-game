@@ -13,7 +13,7 @@
     <script>
         $(function () {
             $('.otree-timer__time-left').on('update.countdown', function (event) {
-                if (event.offset.totalSeconds === 10) {
+                if (event.offset.totalSeconds === 15) {
                     $('.otree-timer').show();
                 }
             });
@@ -21,11 +21,10 @@
     </script>
 {% endblock %}
 
+
 {% block title %}
-    Self-isolation decision
+    Prediction of others' self-isolation in this round
 {% endblock %}
-
-
 
 {% block content %}
 
@@ -36,10 +35,9 @@
         <tr><td>Endowment per round:</td><td>{{ Constants.endowment }}</td></tr>
         <tr><td>Cost of lockdown per round:</td><td>{{ group.lockdown_cost }}</td></tr>
     </table>
-    <br />
-
-    {% formfield player.contribution %}
-
+<p>
+    {% formfields %}
+</p>
     {% next_button %}
     {% comment %} {% endcomment %}
 

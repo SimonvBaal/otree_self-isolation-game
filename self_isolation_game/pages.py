@@ -4,7 +4,7 @@ from .models import Constants
 
 
 class Introduction(Page):
-    timeout_seconds = 180
+    timeout_seconds = 240
 
     def is_displayed(self):
         # display the page in the first round
@@ -36,7 +36,7 @@ class ConditionChange(Page):
             return False
 
     def get_timeout_seconds(self):
-        return 30
+        return 45
 
 
 class LockDownMessage(Page):
@@ -49,9 +49,9 @@ class LockDownMessage(Page):
 
     def get_timeout_seconds(self):
         if self.group.lockdown_number == 1 and self.group.lockdown_round == 1:
-            return 25
+            return 45
         else:
-            return 15
+            return 30
 
 
 class SecondPlayerContribute(Page):
@@ -65,9 +65,9 @@ class SecondPlayerContribute(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 80
+            return 75
         else:
-            return 40
+            return 60
 
     def before_next_page(self):
         if self.timeout_happened:
@@ -96,7 +96,7 @@ class OthersPrediction(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 30
+            return 45
         else:
             return 30
 
@@ -119,7 +119,7 @@ class Contribute(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 30
+            return 45
         else:
             return 30
 
@@ -141,7 +141,7 @@ class Results(Page):
 
     def get_timeout_seconds(self):
         if self.round_number == 1:
-            return 25
+            return 45
         else:
             return 30
 

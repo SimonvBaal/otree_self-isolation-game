@@ -3,18 +3,18 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='Self-Isolation_Game_HF', # High lockdown cost first (HF)
+        name='Self_Isolation_Game_HF', # High lockdown cost first (HF)
         display_name="Self-Isolation Game (HF)",
         num_demo_participants=3, # If you want to play a demo, then make sure models.py has 3 players.
-        app_sequence=['self-isolation-game'], # this is where you can add 'end survey' etc.
+        app_sequence=['self_isolation_game'], # this is where you can add 'end survey' etc.
         condition='HF',
     ),
 
     dict(
-        name='Self-Isolation_Game_LF', # Low lockdown cost first (LF)
+        name='Self_Isolation_Game_LF', # Low lockdown cost first (LF)
         display_name='Self-Isolation Game (LF)',
         num_demo_participants=3,
-        app_sequence=['self-isolation-game'],
+        app_sequence=['self_isolation_game'],
         condition='LF'
     ),
 
