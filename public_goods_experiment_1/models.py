@@ -14,13 +14,13 @@ from otree.api import (
 author = 'Simon van Baal, Monash University'
 
 doc = """
-A public goods game, with public health as the good and voluntary self-isolation as the contribution.
+This is the Self-Isolation Game.
 """
 
 
 class Constants(BaseConstants):
     name_in_url = 'public_goods_game'
-    players_per_group = 3
+    players_per_group = 11
     num_rounds = 40
     endowment = c(100)
     instructions_template = 'public_goods_experiment_1/instructions.html'
