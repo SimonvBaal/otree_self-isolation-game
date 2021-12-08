@@ -3,9 +3,9 @@ from os import environ
 
 SESSION_CONFIGS = [
     dict(
-        name='Only_Public_Goods',
-        display_name="Only Public Goods",
-        num_demo_participants=3,
+        name='Self-Isolation_Game',
+        display_name="Only Self-Isolation Game",
+        num_demo_participants=3, # If you want to play a demo, then make sure models.py has 3 players.
         app_sequence=['public_goods_experiment_1'],
         condition='HF',
     ),
@@ -16,17 +16,17 @@ SESSION_CONFIGS = [
         app_sequence=['survey', 'end_survey', 'payment_info'],
     ),
     dict(
-        name='Public_Goods_Game_LF',
-        display_name='Public Goods Game 2020 (LF)',
+        name='Self-Isolation_Game_LF', # Low lockdown cost first (LF)
+        display_name='Self-Isolation Game (LF)',
         num_demo_participants=3,
-        app_sequence=['consent', 'survey', 'public_goods_experiment_1', 'end_survey', 'payment_info'],
+        app_sequence=['consent', 'survey', 'self-isolation-game', 'end_survey', 'payment_info'],
         condition='LF'
     ),
     dict(
-        name='Public_Goods_Game_HF',
-        display_name='Public Goods Game 2020 (HF)',
+        name='Self-Isolation_Game_HF',
+        display_name='Self-Isolation Game (HF)',
         num_demo_participants=3,
-        app_sequence=['consent', 'survey', 'public_goods_experiment_1', 'end_survey', 'payment_info'],
+        app_sequence=['consent', 'survey', 'self-isolation-game', 'end_survey', 'payment_info'],
         condition='HF'
     ),
 
@@ -38,7 +38,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=0.002, participation_fee=0.00, doc=""
+    real_world_currency_per_point=0.002, participation_fee=0.00, doc="" # Max 20 pence per round.
 )
 
 # ISO-639 code
@@ -47,12 +47,13 @@ LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'GBP'
-USE_POINTS = True
+USE_POINTS = True # We use points, not currency directly
 
+# You can make a room, this could come in handy depending on the setup.
 ROOMS = [
     dict(
         name='Prolific_Room',
-        display_name='Prolific - Public Goods Game'
+        display_name='Prolific: Self-Isolation Game'
     ),
 ]
 
@@ -61,10 +62,10 @@ ADMIN_USERNAME = 'admin'
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 DEMO_PAGE_INTRO_HTML = """
-Here are some oTree games.
+Welcome.
 """
 
 # don't share this with anybody.
-SECRET_KEY = '$@32wylmc#$v&1953*whfqh2oe!140aym*#9$iw@t00i(!%e!i'
+SECRET_KEY = ' '
 
 INSTALLED_APPS = ['otree']

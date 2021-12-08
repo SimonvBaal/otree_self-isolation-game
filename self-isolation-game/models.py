@@ -20,7 +20,7 @@ This is the Self-Isolation Game.
 
 class Constants(BaseConstants):
     name_in_url = 'public_goods_game'
-    players_per_group = 11
+    players_per_group = 3 # Set to 3 for demo; ideally >5 for an experiment
     num_rounds = 40
     endowment = c(100)
     instructions_template = 'public_goods_experiment_1/instructions.html'
